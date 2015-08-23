@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app="webapp" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>webapp</title>
+
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="js/main.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<header class="header-class">
+		<div class="layout-wrap">
+			<a href="#"><img src="img/netcraft.png" alt="netcraft"></a>
+
+			<form class="search-box">
+				<input type="search" placeholder="search">
+			</form>
+		</div>
+	</header>
+
+	<section class="page-body layout-wrap">
+		<div class="page-wrapper">
+		<div class="notifications"></div>
+
+		<nav>
+			<div class="nav-section" id="nav_1">
+					<p>Select Reporting Platform</p>
+
+					<div class="menu" onclick="document.querySelector(".action-list").style.display = "block";" >
+						<div class="menu-caption" onclick="document.querySelector(".action-list").style.display = "block";" >
+							<p>Choose QS report</p>
+							<div class="arrow-down"></div>
+						</div>
+
+						<ul class="action-list" ng-list="app">
+							<li><a href="#">Corporate</a></li>
+							<li><a href="#">Simple</a></li>
+							<li><a href="#">Buisness</a></li>
+						</ul>
+					</div>
+			</div>
+
+			<div class="nav-section" id="nav_2">
+				<p>Select Dashboard</p>
+
+				<div class="menu">
+					<div class="menu-caption">
+						<p>Choose dashboard</p>
+						<div class="arrow-down"></div>
+					</div>
+
+					<ul class="action-list">
+						<li><a href="#">Account Dashboard</a></li>
+						<li><a href="#">ADM Dashboard</a></li>
+						<li><a href="#">OK Dashboard</a></li>
+						<li><a href="#">Text Dashboard</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="nav-section" id="nav_3">
+				<p>Help &amp; Tutorials</p>
+
+				<div class="menu">
+					<div class="menu-caption">
+						<a href='#'>Choose guide</p>
+						<div class="arrow-down"></div>
+					</div>
+
+					<ul class="action-list">
+						<li><a href="#">link</a></li>
+						<li><a href="#">link</a></li>
+						<li><a href="#">link</a></li>
+						<li><a href="#">link</a></li>
+						<li><a href="#">link</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<section class="tabs">
+			<ul>
+				<li><a href="#quick-reports">Quick Reports</a></li>
+				<li><a href="#my-folders">My Folders</a></li>
+				<li><a href="#my-team-folders">My Team Folders</a></li>
+				<li><a href="#public-folders">Public Folders</a></li>
+			</ul>
+
+			<div class="tab" id="quick-reports">
+			</div>
+
+			<div  class="tab" id="my-folders">
+			</div>
+
+			<div  class="tab" id="my-team-folders">
+			</div>
+
+			<div  class="tab" id="public-folders">
+			</div>
+		</section>
+		<div>
+	</section>
+
+	<script src="js/main.js"></script>
+</body>
+</html>
