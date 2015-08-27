@@ -342,3 +342,7 @@ $(document).ready(function(){
 
 
 });
+
+$(".tab-headers li").onclick(){
+	.class="active";
+}

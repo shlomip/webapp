@@ -20,7 +20,7 @@
 <body>
 	<header class="header-class">
 		<div class="layout-wrap">
-			<a href="#"><img src="img/netcraft.png" alt="netcraft"></a>
+			<a href="#"><img src="img/logo-netcraft.svg" alt="netcraft"></a>
 
 			<form class="search-box">
 				<input type="search" placeholder="search">
@@ -32,7 +32,7 @@
 		<div class="page-wrapper">
 		<div class="notifications"></div>
 
-		<nav>
+		<nav id="nav" role="navigation">
 			<div class="nav-section" id="nav_1">
 					<p>Select Reporting Platform</p>
 
@@ -88,12 +88,13 @@
 			</div>
 		</nav>
 
-		<section class="tabs">
-			<ul>
-				<li><a href="#quick-reports">Quick Reports</a></li>
-				<li><a href="#my-folders">My Folders</a></li>
-				<li><a href="#my-team-folders">My Team Folders</a></li>
-				<li><a href="#public-folders">Public Folders</a></li>
+		<div id="tabs" role="tablist">
+	
+			<ul class="tab-headers">
+				<li><a role="tab" href="#quick-reports">Quick Reports</a></li>
+				<li><a role="tab" href="#my-folders">My Folders</a></li>
+				<li><a role="tab" href="#my-team-folders">My Team Folders</a></li>
+				<li><a role="tab" href="#public-folders">Public Folders</a></li>
 			</ul>
 
 			<div class="tab" id="quick-reports">
