@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="webapp" lang="en">
+<html ng-app="webapp" lang="en" manifest="webapp.appcache">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,46 +12,46 @@
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
         <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-	<header class="header-class">
+	<header>
 		<div class="layout-wrap">
-			<a href="#"><img src="img/logo-netcraft.svg" alt="netcraft"></a>
-
-			<form class="search-box">
-				<input type="search" placeholder="search">
-			</form>
+				<a class="logo" href="#"><img src="img/logo-netcraft.svg" alt="netcraft"></a>
+				<form class="search-box">
+					<input type="search" placeholder="search">
+				</form>
 		</div>
 	</header>
 
-	<section class="page-body layout-wrap">
-		<div class="page-wrapper">
-		<div class="notifications"></div>
+	<section class="page-body-layout-wrap">
+	<div class="body-div">
+		<div class="notifications">
+			<span data-span="notificationTxt">The data of UTF BI would be updated at 16:00 pm.</span>
+		</div>
 
 		<nav id="nav" role="navigation">
-			<div class="nav-section" id="nav_1">
-					<p>Select Reporting Platform</p>
+			<div class="nav-section-wrapper" id="nav_1">
+				<p class="nav-section-p">Select Reporting Platform</p>
 
-					<div class="menu" onclick="document.querySelector(".action-list").style.display = "block";" >
-						<div class="menu-caption" onclick="document.querySelector(".action-list").style.display = "block";" >
-							<p>Choose QS report</p>
-							<div class="arrow-down"></div>
+				<div class="menu" onclick="document.querySelector(".action-list").style.display = "block";" >
+					<div class="menu-caption" onclick="document.querySelector(".action-list").style.display = "block";" >
+						<p>Choose QS report</p>
+						<div class="arrow-down">
 						</div>
-
-						<ul class="action-list" ng-list="app">
-							<li><a href="#">Corporate</a></li>
-							<li><a href="#">Simple</a></li>
-							<li><a href="#">Buisness</a></li>
-						</ul>
 					</div>
+					<ul class="action-list" ng-list="app">
+						<li><a href="#">Corporate</a></li>
+						<li><a href="#">Simple</a></li>
+						<li><a href="#">Buisness</a></li>
+					</ul>
+				</div>
 			</div>
 
-			<div class="nav-section" id="nav_2">
-				<p>Select Dashboard</p>
+			<div class="nav-section-wrapper" id="nav_2">
+				<p class="nav-section-p">Select Dashboard</p>
 
 				<div class="menu">
 					<div class="menu-caption">
@@ -68,13 +68,14 @@
 				</div>
 			</div>
 
-			<div class="nav-section" id="nav_3">
-				<p>Help &amp; Tutorials</p>
+			<div class="nav-section-wrapper" id="nav_3">
+				<p class="nav-section-p">Help &amp; Tutorials</p>
 
 				<div class="menu">
 					<div class="menu-caption">
-						<a href='#'>Choose guide</p>
-						<div class="arrow-down"></div>
+						<p>Choose guide</p>
+						<div class="arrow-down">
+						</div>
 					</div>
 
 					<ul class="action-list">
@@ -91,25 +92,91 @@
 		<div id="tabs" role="tablist">
 	
 			<ul class="tab-headers">
-				<li><a role="tab" href="#quick-reports">Quick Reports</a></li>
-				<li><a role="tab" href="#my-folders">My Folders</a></li>
-				<li><a role="tab" href="#my-team-folders">My Team Folders</a></li>
-				<li><a role="tab" href="#public-folders">Public Folders</a></li>
+				<li><a role="tab" id="tab-quick-reports" href="#quick-reports">Quick Reports</a></li>
+				<li><a role="tab" id="tab-my-folders" href="#my-folders">My Folders</a></li>
+				<li><a role="tab" id="tab-my-team-folders" href="#my-team-folders">My Team Folders</a></li>
+				<li><a role="tab" id="tab-public-folders" href="#public-folders">Public Folders</a></li>
 			</ul>
+		
 
-			<div class="tab" id="quick-reports">
+		<div class="tab" id="quick-reports">
+			<div class="quick-reports-wrapper">
+				<div class="select">
+					<select name="choose-iframe" class="choose-iframe-select" data-select="qrSettings"><option value="http://dsvsdv.ascasc.com">vdvdsvs</option>
+					</select>
+					</div>
+				<div class="navigation">
+					<a id="settings" href="#"></a>
+					<a id="go" href="#"></a>
+				</div>
+				<div class="quick-reports-content-wrapper">
+					<form action>
+						<fieldset>
+							<label for="fs-name">Report 01
+							 Name:
+						  	</label>
+							 <input type="text" value=""> 
+						 	<label for="fs-name">
+						 	 URL:
+						 	 </label>
+							 <input placeholder"http://..." type="text" value="">
+						</fieldset>
+					</form>
+				</div>
+				<div class="quick-reports-content-wrapper">
+					<form action>
+						<fieldset>
+							<label for="fs-name">Report 02
+							 Name:
+						  	</label>
+							<input type="text" value=""> 
+						 	<label for="fs-name">
+						 	 URL:
+						 	 </label>
+							 <input placeholder"http://..." type="text" value="">
+						</fieldset>
+					</form>
+				</div>
+				<div class="quick-reports-content-wrapper">
+					<form action>
+						<fieldset>
+							<label for="fs-name">Report 03
+							 Name:
+						  	</label>
+							 <input type="text" value=""> 
+						 	<label for="fs-name">
+						 	 URL:
+						 	 </label>
+							 <input placeholder"http://..." type="text" value="">
+						</fieldset>
+					</form>
+				</div>
+				<div class="buttons">
+					<button id="cancel">Cancel</button>
+					<button id="save">Save</button>
+				</div>
 			</div>
+		</div>
+	
 
 			<div  class="tab" id="my-folders">
+				<div>
+					<p>test2</p>
+				</div>
 			</div>
 
 			<div  class="tab" id="my-team-folders">
+				<div>
+					<p>test3</p>
+				</div>
 			</div>
 
 			<div  class="tab" id="public-folders">
+				<div>
+					<p>test4</p>
+				</div>
 			</div>
-		</section>
-		<div>
+		</div>
 	</section>
 
 	<script src="js/main.js"></script>

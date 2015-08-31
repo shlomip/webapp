@@ -1,61 +1,53 @@
+//$(document).ready(function(){
 
-var EventHandler = {
-    bind:function(el, ev, fn){
-        if(window.addEventListener){ // modern browsers including IE9+
-            el.addEventListener(ev, fn, false);
-        } else if(window.attachEvent) { // IE8 and below
-            el.attachEvent('on' + ev, fn);
-        } else {
-            el['on' + ev] = fn;
-        }
-    },
- 
-    unbind:function(el, ev, fn){
-        if(window.removeEventListener){
-            el.removeEventListener(ev, fn, false);
-        } else if(window.detachEvent) {
-            el.detachEvent('on' + ev, fn);
-        } else {
-            elem['on' + ev] = null; 
-        }
-    },
- 
-    stop:function(ev) {
-        var e = ev || window.event;
-        e.cancelBubble = true;
-        if (e.stopPropagation) e.stopPropagation();
-    }
-}
+var tabArray = ["#quick-reports", "#my-folders", "#my-team-folders", "#public-folders"];
 
-if (document.addEventListener) {
-
-	    var addEvent = function(elem, type, handler) {
-
-	        elem.addEventListener(type, handler, false)
-
-	    }
-
-	    var removeEvent = function(elem, type, handler) {
-
-	        elem.removeEventListener(type, handler, false)
-
-	    }
-
+/*function hide-rest(var tabName){
+	
+	int i=0;
+	if (typeof(Storage) != "undefined") {
+		// Retrieve
+		//document.getElementById("tab-quick-reports").innerHTML = localStorage.getItem("last-tab");
+		for (i; i < tabArray.length(); i++){
+			if(tabArray[i]!=tabName)
+				$("tabArray[i]").hide();
+		}
+		
 	} else {
-
-	    var addEvent = function(elem, type, handler) {
-
-	        elem.attachEvent("on" + type, handler)
-
-	    }
-
-	    var removeEvent = function(elem, type, handler) {
-
-	        elem.detachEvent("on" + type, handler)
-
-	    }
-
+	//	document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
 	}
+}*/
 
- 
-addEvent(elem, "click", function() { alert('hi') })
+$(".tab").hide();
+
+$("#tab-quick-reports").click(function(){
+	$("#quick-reports").show();
+	$("#tab-quick-reports").css("background-color","#e6e6e6");
+	localStorage.setItem("last-tab", "#quick-reports");
+	hide-rest("#quick-reports");
+
+}); 
+$("#tab-my-folders").click(function(){
+	$("#my-folders").show();
+	$("#tab-my-folders").css("background-color","#e6e6e6");
+	localStorage.setItem("last-tab", "#my-folders");
+	hide-rest("#my-folders");
+}); 
+$("#tab-my-team-folders").click(function(){
+	$("#my-team-folders").show();
+	$("#tab-my-team-folders").css("background-color","#e6e6e6");
+	localStorage.setItem("last-tab", "#my-team-folders");
+	hide-rest("#my-team-folders");
+}); 
+$("#tab-public-folders").click(function(){
+	$("#public-folders").show();
+	$("#tab-public-folders").css("background-color","#e6e6e6");
+	localStorage.setItem("last-tab", "#public-folders");
+	hide-rest("#public-folders");
+}); 
+
+$("#settings").click(function(){
+	$(".quick-reports-wrapper").toggle();
+
+});
+//}
