@@ -35,17 +35,16 @@
 		<nav id="nav" role="navigation">
 			<div class="nav-section-wrapper" id="nav_1">
 				<p class="nav-section-p">Select Reporting Platform</p>
-
-				<div class="menu" onclick="document.querySelector(".action-list").style.display = "block";" >
-					<div class="menu-caption" onclick="document.querySelector(".action-list").style.display = "block";" >
+				<div class="menu" onclick="document.querySelector(".action-list").style.display = "list-item";" >
+					<div class="menu-caption" onclick="document.querySelector(".action-list").style.display = "list-item";" >
 						<p>Choose QS report</p>
 						<div class="arrow-down">
 						</div>
 					</div>
 					<ul class="action-list" ng-list="app">
-						<li><a href="#">Corporate</a></li>
-						<li><a href="#">Simple</a></li>
-						<li><a href="#">Buisness</a></li>
+						<li><a href="http://netcraft.co.il/">Corporate</a></li>
+						<li><a href="http://netcraft.co.il/">Simple</a></li>
+						<li><a href="http://netcraft.co.il/">Buisness</a></li>
 					</ul>
 				</div>
 			</div>
@@ -166,8 +165,61 @@
 			</div>
 
 			<div  class="tab" id="my-team-folders">
-				<div>
-					<p>test3</p>
+				<div class="quick-reports-wrapper">
+					<div class="select">
+						<select name="choose-iframe" class="choose-iframe-select" data-select="qrSettings"><option value="http://dsvsdv.ascasc.com">vdvdsvs</option>
+						</select>
+						</div>
+					<div class="navigation">
+						<a id="settings" href="#"></a>
+						<a id="go" href="#"></a>
+					</div>
+					<div class="quick-reports-content-wrapper">
+						<form action>
+							<fieldset>
+								<label for="fs-name">Report 01
+								 Name:
+							  	</label>
+								 <input type="text" value=""> 
+							 	<label for="fs-name">
+							 	 URL:
+							 	 </label>
+								 <input placeholder"http://..." type="text" value="">
+							</fieldset>
+						</form>
+					</div>
+					<div class="quick-reports-content-wrapper">
+						<form action>
+							<fieldset>
+								<label for="fs-name">Report 02
+								 Name:
+							  	</label>
+								<input type="text" value=""> 
+							 	<label for="fs-name">
+							 	 URL:
+							 	 </label>
+								 <input placeholder"http://..." type="text" value="">
+							</fieldset>
+						</form>
+					</div>
+					<div class="quick-reports-content-wrapper">
+						<form action>
+							<fieldset>
+								<label for="fs-name">Report 03
+								 Name:
+							  	</label>
+								 <input type="text" value=""> 
+							 	<label for="fs-name">
+							 	 URL:
+							 	 </label>
+								 <input placeholder"http://..." type="text" value="">
+							</fieldset>
+						</form>
+					</div>
+					<div class="buttons">
+						<button id="cancel">Cancel</button>
+						<button id="save">Save</button>
+					</div>
 				</div>
 			</div>
 

@@ -20,6 +20,8 @@ var tabArray = ["#quick-reports", "#my-folders", "#my-team-folders", "#public-fo
 
 $(".tab").hide();
 
+$("#quick-reports").show();
+
 $("#tab-quick-reports").click(function(){
 	$("#quick-reports").show();
 	$("#tab-quick-reports").css("background-color","#e6e6e6");
