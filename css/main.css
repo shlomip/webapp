@@ -1,6 +1,6 @@
 header{
     background-color: black;
-    position: absolute;
+    position: fixed;
     z-index: 200;
     left: 0;
     right: 0;
@@ -12,6 +12,8 @@ body{
      background: url("../img/body-background.jpg");
      background-repeat:no-repeat;
      background-size: cover;
+     margin-top:0;
+     max-width:1320px
 
 }
 
@@ -132,19 +134,29 @@ input{
 
 .action-list {
     display:none;
-    z-index: 100;
     height: 36px;
     width:inherit;
+    color:black;
+    padding:0;
+}
+
+.action-list li {
+    z-index: 100;
+    list-style: none;
+    padding:0;
+    width: 100%;
+    height: 36px;
+    font-size: 0.8rem;
+    border-top: 1px solid #b8b8b8;
+    line-height: 36px;
 }
 
 .action-list li > a {
-    width:inherit;
-    display:list-item;
-    border: 7px solid transparent;
+    display:block;
     background: #ebebeb;
-    color:inherit;
     text-decoration: none;
-    padding:0 20px;
+    color: inherit;
+    padding: 0 20px;
 }
 
 .menu {
@@ -156,7 +168,7 @@ input{
 
 .menu-caption:hover .action-list {
     visibility: visible;
-    display:inline-block;
+    display: block;
 }
 
 
@@ -169,19 +181,22 @@ input{
     display:inline;
     float:right;
     margin-right: 3%;
-    width: 0; 
-    height: 0;
     transform: rotateZ(0);
     border-left: 10px solid black;
     border: 7px solid transparent;
     border-top-color: #000;
-    top: 15px;
-    right: 20px;
 }
 
 .menu:hover .action-list {
     visibility: visible;
-    display:inline-block;
+    display:block;
+}
+
+.tab {
+    background-color: #e6e6e6;
+    display:block;
+    width:inherit;
+    height: 1000px;
 }
 
 .tab-headers{
@@ -234,12 +249,11 @@ a[role="tab"]{
 
 #quick-reports{ 
     display:block;
-    background-color:#e6e6e6;
     width:inherit;
     height: auto;
 }
 
-.quick-reports-wrapper{
+.reports-wrapper{
     display:block;
     background-color: white;
     height:auto;
@@ -251,8 +265,7 @@ a[role="tab"]{
 select {
     display:inline;
     padding: 5px 8px;
-    width: 130px;
-    margin-left:2.5%;
+    width: 30%;
 }
 
 .select { 
@@ -279,8 +292,10 @@ select {
 
 
 .buttons{
-    display:inline-block;
-    float:right;
+    display:block;
+    width:inherit;
+    height: auto;
+    margin-left: 80%;
 }
 
 
@@ -301,3 +316,31 @@ fieldset{
     margin:2.5%;
     border:none;
 }
+
+#expend{
+     background: url("../img/icons/expand.png");
+     background-repeat: no-repeat;
+     display: inline-block;
+     width: 40px;
+     float: right;
+     height: 40px;
+
+ }
+
+ #expend :hover {
+    background-color: white;
+ }
+
+#settings{
+     background: url("../img/icons/settings.png");
+     background-repeat: no-repeat;
+     display: inline-block;
+     width: 40px;
+     float: right;
+     height: 40px;
+ }
+
+
+ #settings :hover {
+    background-color: white;
+ }
