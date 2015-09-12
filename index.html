@@ -9,11 +9,11 @@
 
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
         <script src="js/main.js"></script>
-        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-        <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script type="text/javascript" src="js/vendor/jquery-1.11.3.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -99,58 +99,59 @@
 		
 
 		<div class="tab" id="quick-reports">
+			<div class="select">
+				<a id="settings" href="#"></a>
+				<a id="expend" href="#"></a>
+				<select id ="choose-iframe" name="choose-iframe" class="choose-iframe-select" data-select="qrSettings">
+				</select>
+				</div>
+				<iframe id="quick-reports-iframe"src="http://google.com"></iframe>
 			<div class="reports-wrapper">
-				<div class="select">
-					<a id="settings" href=""></a>
-					<a id="expend" href=""></a>
-					<select name="choose-iframe" class="choose-iframe-select" data-select="qrSettings"><option value="http://dsvsdv.ascasc.com">vdvdsvs</option>
-					</select>
-					</div>
 				<div class="quick-reports-content-wrapper">
 					<form action>
 						<fieldset>
-							<label for="fs-name">Report 01
+							<label >Report 01
 							 Name:
 						  	</label>
-							 <input type="text" value=""> 
-						 	<label for="fs-name">
+							 <input id="report1_name" type="text" value=""> 
+						 	<label for="report1_url">
 						 	 URL:
 						 	 </label>
-							 <input placeholder"http://..." type="text" value="">
+							 <input id="report1_url" placeholder="http://..." type="text" value="">
 						</fieldset>
 					</form>
 				</div>
 				<div class="quick-reports-content-wrapper">
 					<form action>
 						<fieldset>
-							<label for="fs-name">Report 02
+							<label for="report2_name">Report 02
 							 Name:
 						  	</label>
-							<input type="text" value=""> 
-						 	<label for="fs-name">
+							 <input id="report2_name" type="text" value=""> 
+						 	<label for="report2_url">
 						 	 URL:
 						 	 </label>
-							 <input placeholder"http://..." type="text" value="">
+							 <input id="report2_url" placeholder="http://..." type="text" value="">
 						</fieldset>
 					</form>
 				</div>
 				<div class="quick-reports-content-wrapper">
 					<form action>
 						<fieldset>
-							<label for="fs-name">Report 03
+							<label for="report3_name">Report 03
 							 Name:
 						  	</label>
-							 <input type="text" value=""> 
-						 	<label for="fs-name">
+							 <input id="report3_name" type="text" value=""> 
+						 	<label for="report3_url">
 						 	 URL:
 						 	 </label>
-							 <input placeholder"http://..." type="text" value="">
+							 <input id="report3_url" placeholder="http://..." type="text" value="">
 						</fieldset>
 					</form>
 				</div>
 				<div class="buttons">
-					<button id="cancel">Cancel</button>
-					<button id="save">Save</button>
+					<button class="cancel" id="cancel_1">Cancel</button>
+					<button class="save" id="save-1" type="submit">Save</button>
 				</div>
 			</div>
 		</div>
@@ -163,61 +164,62 @@
 			</div>
 
 			<div  class="tab" id="my-team-folders">
-				<div class="reports-wrapper">
-					<div class="select">
-						<a id="settings" href=""></a>
-						<a id="expend" href=""></a>
-						<select name="choose-iframe" class="choose-iframe-select" data-select="qrSettings"><option value="http://dsvsdv.ascasc.com">vdvdsvs</option>
-						</select>
-						</div>
-					<div class="quick-reports-content-wrapper">
-						<form action>
-							<fieldset>
-								<label for="fs-name">Report 01
-								 Name:
-							  	</label>
-								 <input type="text" value=""> 
-							 	<label for="fs-name">
-							 	 URL:
-							 	 </label>
-								 <input placeholder"http://..." type="text" value="">
-							</fieldset>
-						</form>
-					</div>
-					<div class="quick-reports-content-wrapper">
-						<form action>
-							<fieldset>
-								<label for="fs-name">Report 02
-								 Name:
-							  	</label>
-								<input type="text" value=""> 
-							 	<label for="fs-name">
-							 	 URL:
-							 	 </label>
-								 <input placeholder"http://..." type="text" value="">
-							</fieldset>
-						</form>
-					</div>
-					<div class="quick-reports-content-wrapper">
-						<form action>
-							<fieldset>
-								<label for="fs-name">Report 03
-								 Name:
-							  	</label>
-								 <input type="text" value=""> 
-							 	<label for="fs-name">
-							 	 URL:
-							 	 </label>
-								 <input placeholder"http://..." type="text" value="">
-							</fieldset>
-						</form>
-					</div>
-					<div class="buttons">
-						<button id="cancel">Cancel</button>
-						<button id="save">Save</button>
-					</div>
+			<div class="select">
+				<a id="settings" href="#"></a>
+				<a id="expend" href="#"></a>
+				<select id ="choose-iframe" name="choose-iframe" class="choose-iframe-select" data-select="qrSettings">
+				</select>
+				</div>
+				<iframe id="quick-reports-iframe"src="http://google.com"></iframe>
+			<div class="reports-wrapper">
+				<div class="quick-reports-content-wrapper">
+					<form action>
+						<fieldset>
+							<label >Report 01
+							 Name:
+						  	</label>
+							 <input id="report1_name" type="text" value=""> 
+						 	<label for="report1_url">
+						 	 URL:
+						 	 </label>
+							 <input id="report1_url" placeholder="http://..." type="text" value="">
+						</fieldset>
+					</form>
+				</div>
+				<div class="quick-reports-content-wrapper">
+					<form action>
+						<fieldset>
+							<label for="report2_name">Report 02
+							 Name:
+						  	</label>
+							 <input id="report2_name" type="text" value=""> 
+						 	<label for="report2_url">
+						 	 URL:
+						 	 </label>
+							 <input id="report2_url" placeholder="http://..." type="text" value="">
+						</fieldset>
+					</form>
+				</div>
+				<div class="quick-reports-content-wrapper">
+					<form action>
+						<fieldset>
+							<label for="report3_name">Report 03
+							 Name:
+						  	</label>
+							 <input id="report3_name" type="text" value=""> 
+						 	<label for="report3_url">
+						 	 URL:
+						 	 </label>
+							 <input id="report3_url" placeholder="http://..." type="text" value="">
+						</fieldset>
+					</form>
+				</div>
+				<div class="buttons">
+					<button class="cancel" id="cancel_1">Cancel</button>
+					<button class="save" id="save-1" type="submit">Save</button>
 				</div>
 			</div>
+		</div>
 
 			<div  class="tab" id="public-folders">
 				<div>

@@ -1,34 +1,18 @@
 //$(document).ready(function(){
 
-var tabArray = ["#quick-reports", "#my-folders", "#my-team-folders", "#public-folders"];
 
-/*function hide-rest(var tabName){
-	
-	int i=0;
-	if (typeof(Storage) != "undefined") {
-		// Retrieve
-		//document.getElementById("tab-quick-reports").innerHTML = localStorage.getItem("last-tab");
-		for (i; i < tabArray.length(); i++){
-			if(tabArray[i]!=tabName)
-				$("tabArray[i]").hide();
-		}
-		
-	} else {
-	//	document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
-	}
-}*/
-
-$(".tab").hide();
+//$(".tab").hide();
 
 select_tab();
 
 $("#tab-quick-reports").click(function(){
 	$(".tab").hide();
-	$(".tab-head").css("background-color","e6e6e6");
+	$(".tab-head").css("background-color","#525252");
 	$("#quick-reports").show();
 	$("#tab-quick-reports").css("background-color","#e6e6e6");
 	localStorage.setItem("last-tab", "#quick-reports");
-	hide-rest("#quick-reports");
+	return false;
+	//hideRest("#quick-reports");
 }); 
 $("#tab-my-folders").click(function(){
 	$(".tab").hide();
@@ -36,7 +20,8 @@ $("#tab-my-folders").click(function(){
 	$("#my-folders").show();
 	$("#tab-my-folders").css("background-color","#e6e6e6");
 	localStorage.setItem("last-tab", "#my-folders");
-	hide-rest("#my-folders");
+	return false;
+	//hideRest("#my-folders");
 }); 
 $("#tab-my-team-folders").click(function(){
 	$(".tab").hide();
@@ -44,7 +29,8 @@ $("#tab-my-team-folders").click(function(){
 	$("#my-team-folders").show();
 	$("#tab-my-team-folders").css("background-color","#e6e6e6");
 	localStorage.setItem("last-tab", "#my-team-folders");
-	hide-rest("#my-team-folders");
+	return false;
+	//hideRest("#my-team-folders");
 }); 
 $("#tab-public-folders").click(function(){
 	$(".tab").hide();
@@ -52,13 +38,79 @@ $("#tab-public-folders").click(function(){
 	$("#public-folders").show();
 	$("#tab-public-folders").css("background-color","#e6e6e6");
 	localStorage.setItem("last-tab", "#public-folders");
-	hide-rest("#public-folders");
+	return false;
+	//hideRest("#public-folders");
 }); 
 
-$("#settings").click(function(){
+
+$("#settings").click(function(e){
+	 e.preventDefault();
 	$(".reports-wrapper").toggle();
+});
+
+$("#save-1").click(function(){
+	var check = [];
+
+	if(document.getElementById("report1_name").value=="" || document.getElementById("report1_url").value==""){
+		check[0] = "false";
+	}
+	else{
+		localStorage.setItem("reports1_name",$("#report1_name").val());
+		localStorage.setItem("reports1_url",$("#report1_url").val());
+		update_dropdown($("#report1_url").val(), $("#report1_name").val());
+	}
+
+	if(document.getElementById("report2_name").value=="" || document.getElementById("report2_url").value==""){
+		check[1]="false";
+	//	$("#report2_name").css("border", "2px solid red");
+		//$("#report2_url").css("border", "2px solid red");
+	}
+	else{
+		localStorage.setItem("reports2_name",$("#report2_name").val());
+		localStorage.setItem("reports2_url",$("#report2_url").val());
+		update_dropdown($("#report2_url").val(), $("#report2_name").val());
+	}
+
+	if(document.getElementById("report3_name").value=="" && document.getElementById("report3_url").value==""){
+		check[2]="false";
+		//$("#report3_name").css("border", "2px solid red");
+		//$("#report3_url").css("border", "2px solid red");
+	}
+	else{
+		localStorage.setItem("reports3_name",$("#report3_name").val());
+		localStorage.setItem("reports3_url",$("#report3_url").val());
+		update_dropdown($("#report3_url").val(), $("#report3_name").val());
+	}
+	for(var i=1; i<4; i++){
+		if(check[i-1]=="false"){
+			var x = "#reports"
+			x.concat(i,"_name");
+			var y = "#reports";
+			y.concat(i,"_url");
+			$("x").css("border", "2px solid red");
+			$("y").css("border", "2px solid red");
+		}
+	}
+
 
 });
+
+
+function update_dropdown(url, name){
+	//var x = document.getElementById("#choose-iframe");
+    var option = document.createElement("option");
+    option.text = name;
+    option.value = url;
+    document.getElementById("choose-iframe").add(option);
+}
+
+function check_input_values(){
+	if(document.getElementById("report1_name").value != null && document.getElementById("report1_url").value != null)
+	{
+		return 1;
+	}
+
+};
 
 
 function select_tab () {
@@ -74,4 +126,26 @@ else if(localStorage.getItem("last-tab")=="#public-folders")
 else 
 	$("#quick-reports").show(); 
 }
+
+
+
+function clickOnItem(){
+	//e.preventDefault();
+ 	$("#choose-iframe").attr("src", $("this").attr("href"));
+ 	$(".reports-wrapper").hide();
+ 	$("#quick-reports-iframe").css("display", "inline-block");
+}
+
+var tabArray = ["#quick-reports", "#my-folders", "#my-team-folders", "#public-folders"];
+
+function hideRest(tabName){
+	
+		//document.getElementById("tab-quick-reports").innerHTML = localStorage.getItem("last-tab");
+		for (i=0; i < 4; i++){
+			if(tabArray[i] != tabName){
+				$("tabArray[i]").hide();
+			}
+		}
+}
+
 //}
