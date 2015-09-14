@@ -231,11 +231,13 @@ input{
     line-height: 50px;
     text-align: center;
     display:list-item;
-    margin-right: 2%;
+    margin-left: 2%;
     margin-top: 2%;
-
 }
 
+#tab-quick-reports{
+    margin-left: 0, !important;
+}
 
 a[role="tab"].active {
     color: inherit;
@@ -256,10 +258,6 @@ a[role="tab"]{
     list-style:none;
 }
 
-#quick-reports{ 
-    display:block;
-    width:inherit;
-}
 
 .reports-wrapper{
     display:inline-block;
@@ -340,7 +338,7 @@ fieldset{
     background-color: white;
  }
 
-#settings{
+.settings{
      background: url("../img/icons/settings.png");
      background-repeat: no-repeat;
      display: inline-block;
@@ -350,13 +348,14 @@ fieldset{
  }
 
 
- #settings :hover {
+ .settings :hover {
     background-color: white;
  }
 
-#quick-reports-iframe{
-    display: none;
-    width:100%;
+.iframe-build {
+    display: inline-block;
+    width: 95%;
     height: 100%;
-    background-color:black;
+    margin:3%;
+    background-color: #ebebeb;
 }

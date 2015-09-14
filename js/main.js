@@ -1,8 +1,9 @@
 //$(document).ready(function(){
 
 
-//$(".tab").hide();
-
+$(".tab").hide();
+$("#quick-reports-iframe").hide();
+$("#my-team-folders-iframe").hide();
 select_tab();
 
 $("#tab-quick-reports").click(function(){
@@ -43,9 +44,25 @@ $("#tab-public-folders").click(function(){
 }); 
 
 
-$("#settings").click(function(e){
+$(".settings").click(function(e){
 	 e.preventDefault();
 	$(".reports-wrapper").toggle();
+	$("#quick-reports-iframe").hide();
+	return false;
+});
+
+
+$("#expend").click(function(e){
+	 //e.preventDefault();
+	newTab($("#quick-reports-iframe").attr("src"));
+	return false;
+});
+
+$("#settings-2").click(function(e){
+	 e.preventDefault();
+	$(".reports-wrapper").toggle();
+	$("#quick-reports-iframe").hide();
+	return false;
 });
 
 $("#save-1").click(function(){
@@ -53,6 +70,8 @@ $("#save-1").click(function(){
 
 	if(document.getElementById("report1_name").value=="" || document.getElementById("report1_url").value==""){
 		check[0] = "false";
+		$("#report1_name").css("border", "2px solid red");
+		$("#report1_url").css("border", "2px solid red");
 	}
 	else{
 		localStorage.setItem("reports1_name",$("#report1_name").val());
@@ -62,8 +81,8 @@ $("#save-1").click(function(){
 
 	if(document.getElementById("report2_name").value=="" || document.getElementById("report2_url").value==""){
 		check[1]="false";
-	//	$("#report2_name").css("border", "2px solid red");
-		//$("#report2_url").css("border", "2px solid red");
+		$("#report2_name").css("border", "2px solid red");
+		$("#report2_url").css("border", "2px solid red");
 	}
 	else{
 		localStorage.setItem("reports2_name",$("#report2_name").val());
@@ -73,15 +92,16 @@ $("#save-1").click(function(){
 
 	if(document.getElementById("report3_name").value=="" && document.getElementById("report3_url").value==""){
 		check[2]="false";
-		//$("#report3_name").css("border", "2px solid red");
-		//$("#report3_url").css("border", "2px solid red");
+		$("#report3_name").css("border", "2px solid red");
+		$("#report3_url").css("border", "2px solid red");
 	}
 	else{
 		localStorage.setItem("reports3_name",$("#report3_name").val());
 		localStorage.setItem("reports3_url",$("#report3_url").val());
 		update_dropdown($("#report3_url").val(), $("#report3_name").val());
 	}
-	for(var i=1; i<4; i++){
+	var i = 1;
+	while( i<4 ){
 		if(check[i-1]=="false"){
 			var x = "#reports"
 			x.concat(i,"_name");
@@ -90,12 +110,31 @@ $("#save-1").click(function(){
 			$("x").css("border", "2px solid red");
 			$("y").css("border", "2px solid red");
 		}
+		i++;
 	}
 
-
+	return false;
 });
 
+$("#choose-iframe").change(function(){
+	//var selectedOption = $("#choose-iframe option:selected");
+	$("option:selected").click($("#quick-reports-iframe").attr("src", "http://"+$("option:selected").attr("value")));
+	$("#quick-reports-iframe").show();
+	$(".reports-wrapper").hide();
+	
+});
 
+function newTab(link){
+	var win = window.open(link, '_blank');
+if(win){
+    //Browser has allowed it to be opened
+    win.focus();
+}else{
+    //Broswer has blocked it
+    alert('Please allow popups for this site');
+}
+
+}
 function update_dropdown(url, name){
 	//var x = document.getElementById("#choose-iframe");
     var option = document.createElement("option");
@@ -125,16 +164,7 @@ else if(localStorage.getItem("last-tab")=="#public-folders")
 	$("#public-folders").show();
 else 
 	$("#quick-reports").show(); 
-}
-
-
-
-function clickOnItem(){
-	//e.preventDefault();
- 	$("#choose-iframe").attr("src", $("this").attr("href"));
- 	$(".reports-wrapper").hide();
- 	$("#quick-reports-iframe").css("display", "inline-block");
-}
+};
 
 var tabArray = ["#quick-reports", "#my-folders", "#my-team-folders", "#public-folders"];
 
@@ -146,6 +176,6 @@ function hideRest(tabName){
 				$("tabArray[i]").hide();
 			}
 		}
-}
+};
 
 //}

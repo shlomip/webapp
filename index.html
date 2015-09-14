@@ -100,12 +100,13 @@
 
 		<div class="tab" id="quick-reports">
 			<div class="select">
-				<a id="settings" href="#"></a>
+				<a class="settings" href="#"></a>
 				<a id="expend" href="#"></a>
 				<select id ="choose-iframe" name="choose-iframe" class="choose-iframe-select" data-select="qrSettings">
+				<option></option>
 				</select>
 				</div>
-				<iframe id="quick-reports-iframe"src="http://google.com"></iframe>
+				<iframe class="iframe-build" id="quick-reports-iframe" src=""></iframe>
 			<div class="reports-wrapper">
 				<div class="quick-reports-content-wrapper">
 					<form action>
@@ -150,27 +151,28 @@
 					</form>
 				</div>
 				<div class="buttons">
-					<button class="cancel" id="cancel_1">Cancel</button>
+					<button class="cancel" id="cancel-1">Cancel</button>
 					<button class="save" id="save-1" type="submit">Save</button>
 				</div>
 			</div>
 		</div>
 	
 
-			<div class="tab" id="my-folders">
-				<div>
-					<p>test2</p>
-				</div>
+		<div class="tab" id="my-folders">
+			<iframe class="iframe-build" id="quick-reports-iframe" src="http://netcraft.co.il"></iframe>
+			<div class="reports-wrapper">
 			</div>
+		</div>
 
-			<div  class="tab" id="my-team-folders">
+		<div class="tab" id="my-team-folders">
 			<div class="select">
-				<a id="settings" href="#"></a>
+				<a class="settings" href="#"></a>
 				<a id="expend" href="#"></a>
 				<select id ="choose-iframe" name="choose-iframe" class="choose-iframe-select" data-select="qrSettings">
+				<option></option>
 				</select>
 				</div>
-				<iframe id="quick-reports-iframe"src="http://google.com"></iframe>
+				<iframe class="iframe-build" id="my-team-folders-iframe" src=""></iframe>
 			<div class="reports-wrapper">
 				<div class="quick-reports-content-wrapper">
 					<form action>
@@ -215,18 +217,18 @@
 					</form>
 				</div>
 				<div class="buttons">
-					<button class="cancel" id="cancel_1">Cancel</button>
-					<button class="save" id="save-1" type="submit">Save</button>
+					<button class="cancel" id="cancel-2">Cancel</button>
+					<button class="save" id="save-2" type="submit">Save</button>
 				</div>
 			</div>
 		</div>
 
-			<div  class="tab" id="public-folders">
-				<div>
-					<p>test4</p>
-				</div>
+		<div class="tab" id="public-folders">
+			<iframe class="iframe-build" id="my-team-folders-iframe" src="http://netcraft.co.il"></iframe>
+			<div class="reports-wrapper">
 			</div>
 		</div>
+	</div>
 	</section>
 
 	<script src="js/main.js"></script>
