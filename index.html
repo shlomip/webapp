@@ -91,26 +91,27 @@
 		<div id="tabs" role="tablist">
 	
 			<ul class="tab-headers">
-				<li><a class="tab-head" role="tab" id="tab-quick-reports" href="#quick-reports">Quick Reports</a></li>
-				<li><a class="tab-head" role="tab" id="tab-my-folders" href="#my-folders">My Folders</a></li>
-				<li><a class="tab-head" role="tab" id="tab-my-team-folders" href="#my-team-folders">My Team Folders</a></li>
-				<li><a class="tab-head" role="tab" id="tab-public-folders" href="#public-folders">Public Folders</a></li>
+				<li class="first-tab"><a role="tab" id="tab-quick-reports" href="#quick-reports">Quick Reports</a></li>
+				<li class="tab-head"><a  role="tab" id="tab-my-folders" href="#my-folders">My Folders</a></li>
+				<li class="tab-head"><a  role="tab" id="tab-my-team-folders" href="#my-team-folders">My Team Folders</a></li>
+				<li class="tab-head"><a  role="tab" id="tab-public-folders" href="#public-folders">Public Folders</a></li>
 			</ul>
 		
 
 		<div class="tab" id="quick-reports">
 			<div class="select">
 				<a class="settings" href="#"></a>
-				<a id="expend" href="#"></a>
+				<a class="expend" href="#"></a>
 				<select id ="choose-iframe" name="choose-iframe" class="choose-iframe-select" data-select="qrSettings">
 				<option></option>
 				</select>
-				</div>
 				<iframe class="iframe-build" id="quick-reports-iframe" src=""></iframe>
+				</div>
+				
 			<div class="reports-wrapper">
 				<div class="quick-reports-content-wrapper">
 					<form action>
-						<fieldset>
+						<fieldset class="report">
 							<label >Report 01
 							 Name:
 						  	</label>
@@ -124,7 +125,7 @@
 				</div>
 				<div class="quick-reports-content-wrapper">
 					<form action>
-						<fieldset>
+						<fieldset class="report">
 							<label for="report2_name">Report 02
 							 Name:
 						  	</label>
@@ -138,7 +139,7 @@
 				</div>
 				<div class="quick-reports-content-wrapper">
 					<form action>
-						<fieldset>
+						<fieldset class="report">
 							<label for="report3_name">Report 03
 							 Name:
 						  	</label>
@@ -151,8 +152,8 @@
 					</form>
 				</div>
 				<div class="buttons">
-					<button class="cancel" id="cancel-1">Cancel</button>
-					<button class="save" id="save-1" type="submit">Save</button>
+					<button class="cancel" id="cancel">Cancel</button>
+					<button class="save" id="save" type="submit">Save</button>
 				</div>
 			</div>
 		</div>
@@ -171,12 +172,13 @@
 				<select id ="choose-iframe" name="choose-iframe" class="choose-iframe-select" data-select="qrSettings">
 				<option></option>
 				</select>
-				</div>
 				<iframe class="iframe-build" id="my-team-folders-iframe" src=""></iframe>
+				</div>
+				
 			<div class="reports-wrapper">
 				<div class="quick-reports-content-wrapper">
 					<form action>
-						<fieldset>
+						<fieldset class="report">
 							<label >Report 01
 							 Name:
 						  	</label>
@@ -190,7 +192,7 @@
 				</div>
 				<div class="quick-reports-content-wrapper">
 					<form action>
-						<fieldset>
+						<fieldset class="report">
 							<label for="report2_name">Report 02
 							 Name:
 						  	</label>
@@ -204,7 +206,7 @@
 				</div>
 				<div class="quick-reports-content-wrapper">
 					<form action>
-						<fieldset>
+						<fieldset class="report">
 							<label for="report3_name">Report 03
 							 Name:
 						  	</label>

@@ -53,6 +53,8 @@ input{
 .page-body-layout-wrap{
     position: absolute;
     display:inline-block;
+    height: 100%;
+    overflow-y: scroll; 
     left: 1.515151515%;
     right: 1.515151515%;
     max-width: 1320px;
@@ -177,6 +179,7 @@ input{
 .menu-caption:hover .action-list {
     visibility: visible;
     display: block;
+    transition:transform 2s;
 }
 
 
@@ -189,10 +192,17 @@ input{
     display:inline;
     float:right;
     margin-right: 3%;
-    transform: rotateZ(0);
+   
     border-left: 10px solid black;
     border: 7px solid transparent;
     border-top-color: #000;
+    transition:transform 500ms;
+}
+
+
+.menu:hover .arrow-down {
+    transform: rotate(180deg);
+   transform-origin:center 30%;
 }
 
 .menu:hover .action-list {
@@ -225,19 +235,29 @@ input{
     height: 100%;
 }
 
-.tab-headers li{
+
+
+.tab-head{
     float: left;
     width: 25%;
     line-height: 50px;
     text-align: center;
     display:list-item;
-    margin-left: 2%;
+    margin-left: 3%;
     margin-top: 2%;
 }
 
-#tab-quick-reports{
-    margin-left: 0, !important;
+
+.first-tab {
+   float: left;
+    width: 25%;
+    line-height: 50px;
+    text-align: center;
+    display:list-item;
+    margin-left: 0;
+    margin-top: 2%;
 }
+
 
 a[role="tab"].active {
     color: inherit;
@@ -261,11 +281,19 @@ a[role="tab"]{
 
 .reports-wrapper{
     display:inline-block;
+    position:absolute;
     background-color: white;
     height:auto;
     width:90%;
     margin-left: 5%;
     margin-top: 0;
+}
+
+.reports-wrapper:after
+{
+  content: "";
+  display: block;
+  clear: both;
 }
 
 select {
@@ -277,6 +305,7 @@ select {
 .select { 
     height: 40px;
     width: 95%;
+    height:100%;
     padding-top: 20px;
     position: relative;
     background-color: #e6e6e6;
@@ -324,7 +353,7 @@ fieldset{
     border:none;
 }
 
-#expend{
+.expend{
      background: url("../img/icons/expand.png");
      background-repeat: no-repeat;
      display: inline-block;
@@ -355,7 +384,7 @@ fieldset{
 .iframe-build {
     display: inline-block;
     width: 95%;
-    height: 100%;
-    margin:3%;
+    height: 95%;
     background-color: #ebebeb;
+    z-index:0;
 }
