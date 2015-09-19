@@ -100,7 +100,7 @@ input{
     background-color:black;
     list-style: none;
     width:31.515151515%;
-    height:150px;
+    height:145px;
     background: black;
     text-align: center;
     float:left;
@@ -284,9 +284,9 @@ a[role="tab"]{
     position:absolute;
     background-color: white;
     height:auto;
-    width:90%;
+    width:86%;
     margin-left: 5%;
-    margin-top: 0;
+    margin-top: -960px;
 }
 
 .reports-wrapper:after
@@ -307,7 +307,6 @@ select {
     width: 95%;
     height:100%;
     padding-top: 20px;
-    position: relative;
     background-color: #e6e6e6;
     padding-left: 5%;
 }

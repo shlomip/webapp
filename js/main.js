@@ -1,44 +1,97 @@
 $(document).ready(function(){
 
-
-
-const TAB_LIST = ['quick-reports', 'my-folders', 'my-team-folders', 'public-folders'];
+const TAB_LIST = ['#quick-reports', '#my-folders', '#my-team-folders', '#public-folders'];
+const QUICK_REPORTS = 0;
+const MY_FOLDERS = 1;
+const MY_TEAM_FOLDERS = 2;
+const PUBLIC_FOLDERS = 3;
 const NO_OPEN_TAB = 4;
+var Tabs = $(".tab-headers li");
 var CurrentTab = NO_OPEN_TAB; 
 const SITE_TABS = [ 'FirstTab', 'SecondTab', 'ThirdTab'];
 
-
-function on_start_up(){
-	
-
-	$(window).unload(function() {
-		UpdateStorage( CurrentTab, "LastTab" );
-	});
-
-	$(".tab").hide();
-	select_tab();
-
-}
-
 function load_settings(){
 
-	var name, url;
+	//var name, url;
 	var Storage = GetStorage(); 
-	//Storage[TabName] = SiteValue;
-	name = localStorage.getItem("reports1_name",$("#report1_name").val());
-	url = localStorage.getItem("reports1_url",$("#report1_url").val());
-	update_dropdown(url, name);
+	/*$(window).unload(function() {
+		UpdateStorage( CurrentTab, "LastTab" );
+	});*/
+	$(".tab").hide();
+	$(".expand").hide();
+	$("#quick-reports").find(".iframe-build").hide();
+	$("#my-team-folders").find(".iframe-build").hide();
+	location.hash = Storage.LastTab;
+	CurrentTab = Storage.LastTab;
+	console.log(CurrentTab);
 
+	//location.hash = TAB_LIST[0];
+		// There is no storage
+	if(Storage == {})
+	{
+		location.hash = TAB_LIST[0];
+		console.log("empty");
+		return;
+	}
 
-	name = localStorage.getItem("reports2_name",$("#report2_name").val());
-	url = localStorage.getItem("reports2_url",$("#report2_url").val());
-	update_dropdown(url, name);
+	if(Storage.LastTab == undefined)
+	{
+		// open first tab
+		console.log(Storage.LastTab);
+		location.hash = TAB_LIST[0];
+	}
+	else	
+	{
+		// open last active tab
+		location.hash = Storage.LastTab;
+		CurrentTab = Storage.LastTab;
+	}
 
-	name = localStorage.getItem("reports3_name",$("#report3_name").val());
-	url = localStorage.getItem("reports3_url",$("#report3_url").val());
-	update_dropdown(url, name);
+	// There is storage in the first tab
+	if(Storage["FirstTab"] != undefined)
+	{
+		SitesList = $("#FirstList fieldset");
+		for (var i = 0; i < Storage["FirstTab"].length; i++) 
+		{
+			var SiteValue = $(SitesList[i]).find("input");
+			SiteValue[0].value = Storage["FirstTab"][i].site;
+			SiteValue[1].value = Storage["FirstTab"][i].url;
+		};
+		if( Storage["FirstTab"].length > 0 )
+			UpdateSitesTab(QUICK_REPORTS);
+	}
 
-	return 0;
+	// There is storage in the third tab
+	if(Storage["ThirdTab"] != undefined)
+	{
+		SitesList = $("#SecondList fieldset");
+		for (var i = 0; i < Storage["ThirdTab"].length; i++) 
+		{
+			var SiteValue = $(SitesList[i]).find("input");
+			SiteValue[0].value = Storage["ThirdTab"][i].site;
+			SiteValue[1].value = Storage["ThirdTab"][i].url;
+		};
+		if(Storage["ThirdTab"].length > 0)
+			UpdateSitesTab(MY_TEAM_FOLDERS);
+	}
+	/*$.ajax({
+        type:'GET',
+        url: 'C:\Users\shlomi\Documents\GitHub\webapp\data\config.json',
+        contentType: 'plain/text; charset=UTF-8',
+        dataType: 'json',
+        success: function(data){
+
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+
+        },
+        complete: function(jqXHR, textStatus){
+
+            initConfig($.parseJSON(jqXHR.responseText));
+        }
+    });*/
+
+	return;
 }
 
 function newTab(link){
@@ -61,269 +114,220 @@ function update_dropdown(url, name){
     option.text = name;
     option.value = url;
     document.getElementById("choose-iframe").add(option);
-
-
 }
-
-function check_input_values(Site){
-
-	var Entry = $(Site).find("input");
-		
-	SiteEntry = $(Entry[0]);
-	URLEntry = $(Entry[1]);
-	
-	Name = Entry[0];
-	URL = Entry[1];
-	
-	// both entries are not empty
-	if( SiteEntry.val() != "" && URLEntry.val() != "" ) 
-	{
-		EntryFlag = true;
-		// add http:// if doesn't exist
-		if( !URL.value.match("^http") )
-		{
-			var SiteName = 'http://' + URL.value;
-		}
-		else
-		{
-			var SiteName = URL.value;
-		}
-		
-		// check url validity
-		var url_validate = /^(http:\/\/www\.|https:\/\/www\.)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
-		if(!url_validate.test(SiteName))
-		{
-			alert('invalid URL');
-			URLEntry.addClass('red-border');
-			return;
-		}
-
-		ValidEntry.push({'site':Name.value, 'url':SiteName});
-		SiteEntry.removeClass('red-border');
-		URLEntry.removeClass('red-border');
-	}		
-	
-	// one of the entries is empty
-	if( SiteEntry.val() != "" && URLEntry.val() == "" ) 
-	{
-		SiteEntry.removeClass('red-border');
-		URLEntry.addClass('red-border');
-		URL.focus();
-		return;
-	}
-	if( SiteEntry.val() == "" && URLEntry.val() != "" ) 
-	{
-		URLEntry.removeClass('red-border');
-		SiteEntry.addClass('red-border');
-		Name.focus();
-		return;
-	}			
-
-	return 0;			
-
-}
-
 
 function select_tab () {
-
-	var Storage = GetStorage();
-	// body...
-	if(localStorage.getItem("last-tab")=="#quick-reports")
-		$("#quick-reports").show();
-	else if(localStorage.getItem("last-tab")=="#my-folders")
-		$("#my-folders").show();
-	else if(localStorage.getItem("last-tab")=="#my-team-folders")
-		$("#my-team-folders").show();
-	else if(localStorage.getItem("last-tab")=="#public-folders")
-		$("#public-folders").show();
-	else 
-		$("#quick-reports").show(); 
-
-	return 0;
-};
-
-
-function GetStorage()
-{
-		var Storage = localStorage.getItem("webapp");
-		if( Storage == null )
-		{
-			localStorage.setItem( "webapp", JSON.stringify({}) );			
-			Storage = localStorage.getItem("webapp");
-		}
-		return JSON.parse(Storage);
+	for(var i=0; i<TAB_LIST.length; i++){
+		if(CurrentTab == TAB_LIST[i])
+			location.hash = TAB_LIST[i];
+	}
 }
 
-function UpdateStorage( SiteValue, TabName )
-{
+function GetStorage(){
+	var Storage = localStorage.getItem("webapp");
+	if( Storage == null )
+	{
+		localStorage.setItem( "webapp", JSON.stringify({}) );			
+		Storage = localStorage.getItem("webapp");
+	}
+	return JSON.parse(Storage);
+}
+
+function UpdateStorage( SiteValue, TabName ){
 	var Storage = GetStorage(); 
 	Storage[TabName] = SiteValue;
 	localStorage.setItem("webapp", JSON.stringify(Storage));
 }
 
-function SaveSites( SitesForm )
-{ 
+function SaveSites( SitesList ){ 
 	var ValidEntry = [];
 	var EntryFlag = false;
-	var SitesList = $(SitesForm).find(".report"); 
+	//var SitesList = $(SitesForm).find("report"); 
+	//console.log(SitesList.length);
 
-	for (var i = 0; i < SitesList.length; i++) 
-	{
-		if(check_input_values(SitesList[i]))
+	for (var i = 0; i < SitesList.length; i++) {
+		var Entry = $(SitesList[i]).find("input");
+		//console.log(Enrty);
+
+		SiteEntry = $(Entry[0]);
+		URLEntry = $(Entry[1]);
+		
+		Name = Entry[0];
+		URL = Entry[1];
+
+		if( SiteEntry.val() != "" && URLEntry.val() != "" ) 
+		{
+			EntryFlag = true;
+			// add http:// if doesn't exist
+			if( !URL.value.match("^http") )
+			{
+				var SiteName = 'http://' + URL.value;
+			}
+			else
+			{
+				var SiteName = URL.value;
+			}
+			
+			// check url validity
+			var url_validate = /^(http:\/\/www\.|https:\/\/www\.)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+			if(!url_validate.test(SiteName))
+			{
+				alert('invalid URL');
+				URLEntry.addClass('red-border');
+				return;
+			}
+
+			ValidEntry.push({'site':Name.value, 'url':SiteName});
+			//console.log(Name.value, SiteName);
+			SiteEntry.removeClass('red-border');
+			URLEntry.removeClass('red-border');
+			var option = document.createElement("option");
+		    option.text = Name.value;
+			option.value = URL.value;
+			if(CurrentTab=="#quick-reports"){
+				//$(CurrentTab).find(".choose-iframe-select").add(option);
+				document.getElementById("choose-iframe").add(option);
+			}
+			else {//if(CurrentTab=="#my-team-folders"){
+				document.getElementById("team-choose-iframe").add(option);
+			}
+			
+		}		
+			
+		// one of the entries is empty
+		if( SiteEntry.val() != "" && URLEntry.val() == "" ) 
+		{
+			SiteEntry.removeClass('red-border');
+			URLEntry.addClass('red-border');
+			URL.focus();
 			return;
+		}
+		if( SiteEntry.val() == "" && URLEntry.val() != "" ) 
+		{
+			URLEntry.removeClass('red-border');
+			SiteEntry.addClass('red-border');
+			Name.focus();
+			return;
+		}						
 	};
 
-	UpdateStorage( ValidEntry, SITE_TABS[CurrentTab] );			
+	UpdateStorage( ValidEntry, CurrentTab );			
 	if(EntryFlag) 
 	{
-		UpdateSitesTab(CurrentTab); 
-		var TabSelect = $('#' + (TAB_LIST[CurrentTab]));			
+		UpdateTabSites(CurrentTab); //CurrentTab == #xxxxx
+		var TabSelect = $(CurrentTab);	
+		TabSelect.find("select").show();		
+		//console.log(TabSelect);
 	}
 	else
 	{ 
-		var TabSelect = $('#' + (TAB_LIST[CurrentTab]));
+		var TabSelect = $(CurrentTab);
 		TabSelect.find("iframe").hide(); 
 		TabSelect.find("select").hide();
-		TabSelect.find(".expand").hide(); 
+		TabSelect.find(".expend").hide(); 
 	}
 }
 
+function hideRest(){
+	//var storage = GetStorage();
 
-function UpdateSitesTab(TabNumber){
-
-	var Storage = GetStorage();
-	var TabSelect = $('#' + (TAB_LIST[TabNumber]));
-	var SiteValue = Storage[SITE_TABS[TabNumber]];	
-	var SelectFlag = true; 
-
-	if( TabSelect.find("select").length > 0 )
-	{
-		Value = TabSelect.find("select")[0];
-	}
-	else
-	{
-		Value = document.createElement("select"); 
-		SelectFlag = false;
-	}
-
-	for(var i = Value.options.length-1; i >= 0; i--) 
-	{
-		Value.remove(i);
-	}
-
-	for (var i = 0; i < SiteValue.length; i++) //create new option
-	{
-		var Site = document.createElement("option");
-		Site.value = SiteValue[i].url;
-		Site.innerHTML = SiteValue[i].site;
-		Value.add(Site);
-	};
-
-	if(!SelectFlag)
-	{
-		TabSelect.find(".inside-tabs").prepend(Value);
-		TabSelect.find("select").change(function()
-		{
-			var TabSelect = $('#' + (TAB_LIST[CurrentTab]));
-			var Selected = TabSelect.find("select option:selected");
-			TabSelect.find("iframe")[0].src = Selected.val();
-		});
-	}
-
-	if(TabSelect.find("iframe").length > 0)
-	{
-		TabIframe = TabSelect.find("iframe")[0];		
-	}
-	else
-	{
-		TabIframe = document.createElement("iframe");
-		TabSelect.find(".tab-iframe").append(TabIframe);			
-	}
-
-	TabIframe.src = SiteValue[0].url;
-	TabSelect.find(".expand").show();
-	TabSelect.find(".list-form").hide(); 
+	$(".tab").hide();
+	$(".tab-head").css("background-color","#525252");
+	$(CurrentTab).show();
+	$(CurrentTab).css("background-color","#e6e6e6");
+	//localStorage.setItem("CurrentTab", tabName);
+	return;
 }
-	
-
 
 load_settings();	
-on_start_up();
 
-function hideRest(tabName){
-	var storage = GetStorage();
-
-	$(".tab").hide();
-	$(".tab-head").css("background-color","#525252");
-	$("#quick-reports").show();
-	$("#tab-quick-reports").css("background-color","#e6e6e6");
-	localStorage.setItem("CurrentTab", tabName);
-
-}
+$(window).on('hashchange', function(){
+	var TabNumber = TAB_LIST.indexOf(location.hash.slice(1));
+	var TabSelect = $(CurrentTab);
+	if( CurrentTab != TabNumber){
+		TabSelect = $(CurrentTab);
+		if( TabNumber == QUICK_REPORTS || TabNumber == MY_TEAM_FOLDERS ){
+			TabSelect.find(".settings").focus();
+		}
+		else{
+			TabSelect.find(".expand").focus();
+		}
+	}
+});
 
 $("#tab-quick-reports").click(function(){
+	CurrentTab = "#quick-reports";
+	location.hash = "quick-reports"
+	var Storage = GetStorage();
+	Storage.LastTab = CurrentTab;
+	console.log(Storage.LastTab);
 	$(".tab").hide();
-	$(".tab-head").css("background-color","#525252");
+	$(".tab-head a").css("background-color","#525252");
 	$("#quick-reports").show();
 	$("#tab-quick-reports").css("background-color","#e6e6e6");
-	localStorage.setItem("CurrentTab", "#quick-reports");
-	hideRest("#quick-reports");
+	//localStorage.setItem("CurrentTab", "#quick-reports");
+	//hideRest("#quick-reports");
 	return false;
-	
 }); 
 
 $("#tab-my-folders").click(function(){
+	CurrentTab = "#my-folders";
+	location.hash = "my-folders";
 	$(".tab").hide();
-	$(".tab-head").css("background-color","#525252");
+	$(".tab-head a").css("background-color","#525252");
+	$(".first-tab a").css("background-color","#525252");
 	$("#my-folders").show();
 	$("#tab-my-folders").css("background-color","#e6e6e6");
-	localStorage.setItem("last-tab", "#my-folders");
+	//localStorage.setItem("last-tab", "#my-folders");
 	return false;
 	//hideRest("#my-folders");
 }); 
 
 $("#tab-my-team-folders").click(function(){
+	CurrentTab = "#my-team-folders";
+	location.hash = "my-team-folders";
 	$(".tab").hide();
-	$(".tab-head").css("background-color","#525252");
+	$(".tab-head a").css("background-color","#525252");
+	$(".first-tab a").css("background-color","#525252");
 	$("#my-team-folders").show();
 	$("#tab-my-team-folders").css("background-color","#e6e6e6");
-	localStorage.setItem("last-tab", "#my-team-folders");
+	//localStorage.setItem("last-tab", "#my-team-folders");
 	return false;
 	//hideRest("#my-team-folders");
 }); 
 
 $("#tab-public-folders").click(function(){
+	CurrentTab = "#public-folders";
+	location.hash = "public-folders";
 	$(".tab").hide();
 	$(".tab-head a").css("background-color","#525252");
+	$(".first-tab a").css("background-color","#525252");
 	$("#public-folders").show();
 	$("#tab-public-folders").css("background-color","#e6e6e6");
-	localStorage.setItem("last-tab", "#public-folders");
+	//localStorage.setItem("last-tab", "#public-folders");
 	return false;
 	//hideRest("#public-folders");
 }); 
 
-
 $(".settings").click(function(e){
-	 e.preventDefault();
-	$(".reports-wrapper").toggle();
+	e.preventDefault();
+	$(CurrentTab).find(".reports-wrapper").toggle();
 	//$("#quick-reports-iframe").hide();
 	return false;
 });
 
-
-$("#expend").click(function(e){
-	 //e.preventDefault();
+$(".expend").click(function(e){
+	e.preventDefault();
 	newTab($("#quick-reports-iframe").attr("src"));
 	return false;
 });
 
-
-$("#save").click(function(){
-	var check = [];
-
-	var TabSelect = $('#' + (TAB_LIST[CurrentTab]));
-	SaveSites(TabSelect.find("form"));
-
+$(".save").click(function(){
+	var SelectedTab = $(CurrentTab);
+	console.log(CurrentTab);
+	var SitesList = $(CurrentTab).find("form"); 
+	SaveSites(SitesList);
+	//console.log(SitesList.length);
 	return false;
 });
 
@@ -331,12 +335,12 @@ $(".cancel").click(function() {
 		var TabSelect = $('#' + (TAB_LIST[CurrentTab]));
 		TabSelect.find(".list-form").slideUp();
 		TabSelect.find(".settings").focus();
-	});
+});
 
 $("#choose-iframe").change(function(){
 	//var selectedOption = $("#choose-iframe option:selected");
-	
-	$("option:selected").click($("#quick-reports-iframe").attr("src", "http://"+$("option:selected").attr("value")));
+	//console.log("test");
+	$("option:selected").click($("#quick-reports-iframe").attr("src", $("option:selected").attr("value")));
 	$("#quick-reports-iframe").show();
 	$(".reports-wrapper").hide();
 	

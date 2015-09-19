@@ -72,5 +72,13 @@
 				"url": "http://addyosmani.com/"
 			}
 		}
-	]
+	],
+	"sites": [
+	{"name":"url"},
+	{"name":"url"},
+	{"name":"url"},
+	{"name":"url"},
+	{"name":"url"},
+	{"name":"url"},
+	{"name":"url"}]
 }
