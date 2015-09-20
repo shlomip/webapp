@@ -13,31 +13,38 @@ const SITE_TABS = [ 'FirstTab', 'SecondTab', 'ThirdTab'];
 function load_settings(){
 
 	//var name, url;
-	var Storage = GetStorage(); 
-	/*$(window).unload(function() {
-		UpdateStorage( CurrentTab, "LastTab" );
-	});*/
+	//e.preventDefault();
 	$(".tab").hide();
 	$(".expand").hide();
 	$("#quick-reports").find(".iframe-build").hide();
 	$("#my-team-folders").find(".iframe-build").hide();
-	location.hash = Storage.LastTab;
+	var Storage = GetStorage(); 
+
+	$(window).unload(function() {
+		UpdateStorage( CurrentTab, "LastTab" );
+	});
+	
+
+	//location.hash =  Storage.LastTab;
 	CurrentTab = Storage.LastTab;
-	console.log(CurrentTab);
+	$(CurrentTab).show();
+	UpdateTabSites("#quick-reports");
+	UpdateTabSites("#my-team-folders");
+	//console.log("current: "+ CurrentTab);
 
 	//location.hash = TAB_LIST[0];
 		// There is no storage
 	if(Storage == {})
 	{
 		location.hash = TAB_LIST[0];
-		console.log("empty");
+		//console.log("empty");
 		return;
 	}
 
 	if(Storage.LastTab == undefined)
 	{
 		// open first tab
-		console.log(Storage.LastTab);
+	//	console.log(Storage.LastTab);
 		location.hash = TAB_LIST[0];
 	}
 	else	
@@ -50,7 +57,9 @@ function load_settings(){
 	// There is storage in the first tab
 	if(Storage["FirstTab"] != undefined)
 	{
-		SitesList = $("#FirstList fieldset");
+		SitesList = $("CurrentTab .report");
+		//SitesList = Storage.
+		//update_dropdown(url, name);
 		for (var i = 0; i < Storage["FirstTab"].length; i++) 
 		{
 			var SiteValue = $(SitesList[i]).find("input");
@@ -58,7 +67,7 @@ function load_settings(){
 			SiteValue[1].value = Storage["FirstTab"][i].url;
 		};
 		if( Storage["FirstTab"].length > 0 )
-			UpdateSitesTab(QUICK_REPORTS);
+			UpdateTabSites("#quick-reports");
 	}
 
 	// There is storage in the third tab
@@ -72,7 +81,7 @@ function load_settings(){
 			SiteValue[1].value = Storage["ThirdTab"][i].url;
 		};
 		if(Storage["ThirdTab"].length > 0)
-			UpdateSitesTab(MY_TEAM_FOLDERS);
+			UpdateTabSites(MY_TEAM_FOLDERS);
 	}
 	/*$.ajax({
         type:'GET',
@@ -124,18 +133,24 @@ function select_tab () {
 }
 
 function GetStorage(){
+	function function_name (e) {
+		// body...
+		e.preventDefault();
+	};
 	var Storage = localStorage.getItem("webapp");
+	//console.log("before:"+Storage);
 	if( Storage == null )
 	{
 		localStorage.setItem( "webapp", JSON.stringify({}) );			
 		Storage = localStorage.getItem("webapp");
+		//console.log("after:"+Storage);
 	}
 	return JSON.parse(Storage);
 }
 
-function UpdateStorage( SiteValue, TabName ){
+function UpdateStorage( Value, TabName ){
 	var Storage = GetStorage(); 
-	Storage[TabName] = SiteValue;
+	Storage[TabName] = Value;
 	localStorage.setItem("webapp", JSON.stringify(Storage));
 }
 
@@ -177,7 +192,7 @@ function SaveSites( SitesList ){
 				return;
 			}
 
-			ValidEntry.push({'site':Name.value, 'url':SiteName});
+			ValidEntry.push({'site':Name.value, 'url':URL.value});
 			//console.log(Name.value, SiteName);
 			SiteEntry.removeClass('red-border');
 			URLEntry.removeClass('red-border');
@@ -191,27 +206,26 @@ function SaveSites( SitesList ){
 			else {//if(CurrentTab=="#my-team-folders"){
 				document.getElementById("team-choose-iframe").add(option);
 			}
-			
-		}		
-			
-		// one of the entries is empty
-		if( SiteEntry.val() != "" && URLEntry.val() == "" ) 
-		{
-			SiteEntry.removeClass('red-border');
-			URLEntry.addClass('red-border');
-			URL.focus();
-			return;
+					
+			// one of the entries is empty
+			if( SiteEntry.val() != "" && URLEntry.val() == "" ) 
+			{
+				SiteEntry.removeClass('red-border');
+				URLEntry.addClass('red-border');
+				URL.focus();
+				return;
+			}
+			if( SiteEntry.val() == "" && URLEntry.val() != "" ) 
+			{
+				URLEntry.removeClass('red-border');
+				SiteEntry.addClass('red-border');
+				Name.focus();
+				return;
+			}						
 		}
-		if( SiteEntry.val() == "" && URLEntry.val() != "" ) 
-		{
-			URLEntry.removeClass('red-border');
-			SiteEntry.addClass('red-border');
-			Name.focus();
-			return;
-		}						
-	};
+	}
 
-	UpdateStorage( ValidEntry, CurrentTab );			
+	UpdateStorage( ValidEntry, SITE_TABS[CurrentTab] );			
 	if(EntryFlag) 
 	{
 		UpdateTabSites(CurrentTab); //CurrentTab == #xxxxx
@@ -223,9 +237,68 @@ function SaveSites( SitesList ){
 	{ 
 		var TabSelect = $(CurrentTab);
 		TabSelect.find("iframe").hide(); 
-		TabSelect.find("select").hide();
+		//TabSelect.find("select").hide();
 		TabSelect.find(".expend").hide(); 
 	}
+}
+
+
+function UpdateTabSites(Tab){
+	var Storage = GetStorage();
+	var TabSelect = $(Tab);
+	var SiteValue = Storage[TAB_LIST[Tab]];	
+	var SelectFlag = true; 
+
+	//console.log(TabSelect,SiteValue);
+
+	if( TabSelect.find("select").length > 0 )
+	{
+		Value = TabSelect.find("select")[0];
+	}
+	else
+	{
+		Value = document.createElement("select"); 
+		SelectFlag = false;
+	}
+
+	for(var i = Value.options.length-1; i >= 0; i--) 
+	{
+		Value.remove(i);
+	}
+
+	for (var i = 0; i < SiteValue.length; i++)
+	{
+		var Site = document.createElement("option");
+		Site.value = SiteValue[i].url;
+		Site.innerHTML = SiteValue[i].site;
+		Value.add(Site);
+		//console.log(SiteValue[i].url, SiteValue[i].site);
+	};
+
+	if(!SelectFlag)
+	{
+		TabSelect.find(".reports-wrapper").prepend(Value);
+		TabSelect.find("select").change(function()
+		{
+			var TabSelect = $(TAB_LIST[CurrentTab]);
+			var Selected = TabSelect.find("select option:selected");
+			TabSelect.find("iframe")[0].src = Selected.val();
+		});
+	}
+
+	if(TabSelect.find("iframe").length > 0)
+	{
+		TabIframe = TabSelect.find("iframe")[0];		
+	}
+	else
+	{
+		TabIframe = document.createElement("iframe");
+		TabSelect.find(".iframe-build").append(TabIframe);			
+	}
+
+	TabIframe.src = SiteValue[0].url;
+	TabSelect.find(".expand").show();
+	//TabSelect.find(".list-form").hide(); 
 }
 
 function hideRest(){
@@ -255,58 +328,44 @@ $(window).on('hashchange', function(){
 	}
 });
 
-$("#tab-quick-reports").click(function(){
-	CurrentTab = "#quick-reports";
-	location.hash = "quick-reports"
+function tabSelect (tab) {
+	// body...
+	$(".tab").hide();
+	$(".tab-head a").css("background-color","#525252");
+	$(".first-tab a").css("background-color","#525252");
+	$("#" + tab).show();
+	$("#tab-"+ tab).css("background-color","#e6e6e6");
+
+	CurrentTab = "#"+tab;
+	location.hash = tab;
 	var Storage = GetStorage();
 	Storage.LastTab = CurrentTab;
-	console.log(Storage.LastTab);
-	$(".tab").hide();
-	$(".tab-head a").css("background-color","#525252");
-	$("#quick-reports").show();
-	$("#tab-quick-reports").css("background-color","#e6e6e6");
-	//localStorage.setItem("CurrentTab", "#quick-reports");
-	//hideRest("#quick-reports");
+	localStorage.setItem("webapp", JSON.stringify(Storage));
+
+}
+
+$("#tab-quick-reports").click(function(e){
+	e.preventDefault();
+	tabSelect("quick-reports");
 	return false;
 }); 
 
-$("#tab-my-folders").click(function(){
-	CurrentTab = "#my-folders";
-	location.hash = "my-folders";
-	$(".tab").hide();
-	$(".tab-head a").css("background-color","#525252");
-	$(".first-tab a").css("background-color","#525252");
-	$("#my-folders").show();
-	$("#tab-my-folders").css("background-color","#e6e6e6");
-	//localStorage.setItem("last-tab", "#my-folders");
+$("#tab-my-folders").click(function(e){
+	e.preventDefault();
+	tabSelect("my-folders");
 	return false;
-	//hideRest("#my-folders");
 }); 
 
-$("#tab-my-team-folders").click(function(){
-	CurrentTab = "#my-team-folders";
-	location.hash = "my-team-folders";
-	$(".tab").hide();
-	$(".tab-head a").css("background-color","#525252");
-	$(".first-tab a").css("background-color","#525252");
-	$("#my-team-folders").show();
-	$("#tab-my-team-folders").css("background-color","#e6e6e6");
-	//localStorage.setItem("last-tab", "#my-team-folders");
+$("#tab-my-team-folders").click(function(e){
+	e.preventDefault();
+	tabSelect("my-team-folders");
 	return false;
-	//hideRest("#my-team-folders");
 }); 
 
-$("#tab-public-folders").click(function(){
-	CurrentTab = "#public-folders";
-	location.hash = "public-folders";
-	$(".tab").hide();
-	$(".tab-head a").css("background-color","#525252");
-	$(".first-tab a").css("background-color","#525252");
-	$("#public-folders").show();
-	$("#tab-public-folders").css("background-color","#e6e6e6");
-	//localStorage.setItem("last-tab", "#public-folders");
+$("#tab-public-folders").click(function(e){
+	e.preventDefault();
+	tabSelect("public-folders");
 	return false;
-	//hideRest("#public-folders");
 }); 
 
 $(".settings").click(function(e){

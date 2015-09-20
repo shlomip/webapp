@@ -13,7 +13,7 @@ body{
      background-size: cover;
      margin-top:0;
      margin: 0 auto;
-     max-width:1320px;
+     max-width:840;
      min-width:800px;
 }
 
@@ -55,9 +55,10 @@ input{
     display:inline-block;
     height: 100%;
     overflow-y: scroll; 
+    overflow-x: hidden;
     left: 1.515151515%;
     right: 1.515151515%;
-    max-width: 1320px;
+    max-width: 840px;
     min-width: 640px;
     margin: 0 auto;
     padding:30px;
