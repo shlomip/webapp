@@ -13,7 +13,7 @@ body{
      background-size: cover;
      margin-top:0;
      margin: 0 auto;
-     max-width:840;
+     max-width:840px;
      min-width:800px;
 }
 
@@ -58,7 +58,7 @@ input{
     overflow-x: hidden;
     left: 1.515151515%;
     right: 1.515151515%;
-    max-width: 840px;
+    max-width: 1320px;
     min-width: 640px;
     margin: 0 auto;
     padding:30px;
@@ -93,6 +93,7 @@ input{
     margin: 0 auto;
     width: 100%;
     height:150px;
+    margin-bottom: 4%;
  }
 
 
@@ -159,6 +160,7 @@ input{
     font-size: 0.8rem;
     border-top: 1px solid #b8b8b8;
     line-height: 36px;
+    border-bottom: 1px solid #b8b8b8;
 }
 
 .action-list li > a {
@@ -166,7 +168,8 @@ input{
     background: #ebebeb;
     text-decoration: none;
     color: inherit;
-    padding: 0 20px;
+    padding: 2px;
+
 }
 
 .menu {
@@ -285,8 +288,8 @@ a[role="tab"]{
     position:absolute;
     background-color: white;
     height:auto;
-    width:86%;
-    margin-left: 5%;
+    width:88%;
+    margin-left: 4.5%;
     margin-top: -960px;
 }
 
@@ -310,6 +313,7 @@ select {
     padding-top: 20px;
     background-color: #e6e6e6;
     padding-left: 5%;
+    margin-top: 1px;            
 }
 
 .navigation{
@@ -383,7 +387,7 @@ fieldset{
 
 .iframe-build {
     display: inline-block;
-    width: 95%;
+    width: 96.5%;
     height: 95%;
     background-color: #ebebeb;
     z-index:0;
