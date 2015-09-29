@@ -221,7 +221,7 @@ function SaveSites(){
 		$(CurrentTab).find("select").show();
 		$(CurrentTab).find(".expend").show(); 	
 		$(CurrentTab).find("iframe").show(); 
-		$(CurrentTab).find(".reports-wrapper").toggle();
+		$(CurrentTab).find(".reports-wrapper").hide();
 		//console.log(TabSelect);
 	}
 	else
@@ -307,13 +307,17 @@ function UpdateTabSites(Tab){
 			TabIframe = document.createElement("iframe");
 			TabSelect.find(".iframe-build").append(TabIframe);			
 		}
-		if(SiteValue[0]!=null)
-		TabIframe.src = SiteValue[0].url;
-		//console.log(TabIframe.src);
-		TabSelect.find(".expand").show();
-		$(Tab).find(TabIframe).show();
-	//$(CurrentTab).find("iframe-build").show();
-	//TabSelect.find(".list-form").hide(); 
+		if(SiteValue[0]!=null){
+			TabIframe.src = SiteValue[0].url;
+			$(Tab).find(TabIframe).show();
+			$(Tab).find("select").show();
+			$(Tab).find(".expend").show(); 	
+			$(Tab).find("iframe").show(); 
+			$(Tab).find(".reports-wrapper").hide();
+			//$(CurrentTab).find("iframe-build").show();
+			//TabSelect.find(".list-form").hide(); 
+
+		}
 	}
 }
 
