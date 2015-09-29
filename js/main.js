@@ -26,6 +26,7 @@ function load_settings(){
 	//location.hash =  Storage.LastTab;
 	CurrentTab = Storage.LastTab;
 	$(CurrentTab).show();
+	console.log(CurrentTab);
 
 	var selected = "";
 	switch(CurrentTab){
@@ -37,9 +38,7 @@ function load_settings(){
 
 	$(selected).css("background-color", " rgb(230, 230, 230)");
 	//console.log(selected);
-
 	TabNum = Storage.TabNum;
-	
 
 	UpdateTabSites("#quick-reports");
 	UpdateTabSites("#my-team-folders");
@@ -49,7 +48,13 @@ function load_settings(){
 		// There is no storage
 	if(Storage == {})
 	{
-		location.hash = TAB_LIST["#quick-reports"];
+		location.hash = "#quick-reports";
+		if(history.pushState) {
+		    //history.pushState(null, null, "#quick-reports");
+			}
+		else {
+		    location.hash = "#quick-reports";
+		}
 		//console.log("empty");
 		return;
 	}
@@ -57,13 +62,28 @@ function load_settings(){
 	if(Storage.LastTab == undefined)
 	{
 		// open first tab
+		location.hash = "#quick-reports";
+		tabSelect("quick-reports");
 	//	console.log(Storage.LastTab);
-		location.hash = TAB_LIST[0];
+		if(history.pushState) {
+		   // history.pushState(null, null, "#quick-reports");
+			}
+		else {
+		    location.hash = "#quick-reports";
+		}
+
 	}
 	else	
 	{
-		// open last active tab
+		// open last tab
 		location.hash = Storage.LastTab;
+		tabSelect(Storage.LastTab);
+		if(history.pushState) {
+		   // history.pushState(null, null, Storage.LastTab);
+			}
+		else {
+		    location.hash = Storage.LastTab;
+		}
 		CurrentTab = Storage.LastTab;
 	}
 
@@ -90,13 +110,6 @@ function update_dropdown(url, name){
     option.text = name;
     option.value = url;
     document.getElementById("choose-iframe").add(option);
-}
-
-function select_tab () {
-	for(var i=0; i<TAB_LIST.length; i++){
-		if(CurrentTab == TAB_LIST[i])
-			location.hash = TAB_LIST[i];
-	}
 }
 
 function GetStorage(){
@@ -327,50 +340,35 @@ $(window).on('hashchange', function(){
 	}
 });
 
-function tabSelect (tab) {
-	// body...
-	$(".tab").hide();
-	$(".tab-head a").css("background-color","#525252");
-	$(".first-tab a").css("background-color","#525252");
-	$("#" + tab).show();
-	$("#tab-"+ tab).css("background-color","#e6e6e6");
-
-	CurrentTab = "#"+tab;
-	location.hash = CurrentTab;
-	var Storage = GetStorage();
-	Storage.LastTab = CurrentTab;
-	//Storage.TabNum = TabNum;
-	localStorage.setItem("webapp", JSON.stringify(Storage));
-
-	return;
-
-}
-
 function Search(input) 
 {
 	var flag = false;
 	
-	if( SearchTab(input, "#quick-reports")){
+	if( !SearchTab(input, "#quick-reports")){
 		flag = true;
-		var SiteNumber = SearchTab(input, "#quick-reports");
+		var Site = SearchTab(input, "#quick-reports");
 		var Tab = "#quick-reports";
+		tabSelect("quick-reports");
 		//console.log(Tab);
 	}
-	else if( SearchTab(input, "#my-team-folders")){
+	else if( !SearchTab(input, "#my-team-folders")){
 		flag = true;
-		var SiteNumber = SearchTab(input, "#my-team-folders");
+		var Site = SearchTab(input, "#my-team-folders");
 		var Tab = "#my-team-folders";
+		tabSelect("my-team-folders");
 		///console.log(Tab);
 	}
 	// found input
+	console.log(flag);
 	if(flag) {
-		location.hash = Tab; 
+
+		//location.hash = Tab; 
 		//var TabSelect = $('#' + (TAB_LIST[Tab]));
-		var TabSelect = $(TAB_LIST[Tab]);
-		TabSelect.find('select').prop('selectedIndex', SiteNumber); 
+		/*var TabSelect = $(Tab);
+		TabSelect.find('select').prop('selectedIndex', Site); 
 		TabSelect.find('select').trigger('change');
-		$('.notifications').hide();
-		TabSelect.find("select").focus();
+		//$('.notifications').hide();
+		TabSelect.find("select").focus();*/
 	}
 	else{
 		$('.notifications').empty();
@@ -383,7 +381,7 @@ function SearchTab(input, Tab) {
 
 	var Storage = GetStorage();
 	var Sites = [];
-
+	var Storage = GetStorage();
 	var SitesList = $(Tab).find("form"); 
 
 	//console.log(SitesList);
@@ -392,24 +390,91 @@ function SearchTab(input, Tab) {
 		var Entry = $(SitesList[i]).find("input");
 		var Name = Entry[0];
 		var URL = Entry[1];
-		console.log(Name.value);
-		if(input==Name.value){
-			$(Tab).find("iframe-build").attr("src", URL.value);
-			$(Tab).find("iframe-build").show();
+		//console.log(Name.value);
+		if(input == Name.value){
+			CurrentTab = Tab;
+			if(history.pushState) {
+    			//history.pushState(null, null, Tab);
+			}
+			else {
+	 		   location.hash = Tab;
+			}
+			location.hash = Tab;
+			
+			Storage.LastTab = CurrentTab;
+			localStorage.setItem("webapp", JSON.stringify(Storage));
+		
+			//$(Tab).find("iframe-build").attr("src", attr(URL.value));
+			var TabSelect = $(Tab);
+			//var Selected = TabSelect.find("select option:selected");
+			TabSelect.find("iframe")[0].src = URL.value;
+
+			$(Tab).find("iframe").show();
 			$(Tab).find(".reports-wrapper").hide();
 			$(Tab).find("select").focus();
+			$('.notifications').empty();
+			$('.notifications').append('Displaying report ' + '\'' + input + '\'')
+
+			var selected = "";
+			switch(CurrentTab){
+			case '#quick-reports': selected = "#tab-quick-reports"; break;
+			case '#my-folders': selected = "#tab-my-folders"; break;
+			case '#public-folders': selected = "#tab-public-folders";break;
+			case '#my-team-folders':selected = "#tab-my-team-folders";break;
+			}
+			//var str = CurrentTab;
+			//str.split("#",str);
+			//console.log(str);
+			if(Tab=="#quick-reports"){
+				//tabSelect("quick-reports"); //not such a nice workaround..:/
+			}
+			else if(Tab=="my-team-folders"){
+				//tabSelect("my-team-folders");
+			}
+			$(Tab).show();
+			$(selected).css("background-color", "rgb(230, 230, 230)");
+
 			return 0;
 		}
 	}
 	return 1;
 }
 
+
+function tabSelect (tab) {
+	// body...
+	$(".tab").hide();
+	$(".tab-head a").css("background-color","#525252");
+	$(".first-tab a").css("background-color","#525252");
+	$("#" + tab).show();
+	$("#tab-"+ tab).css("background-color","#e6e6e6");
+
+	CurrentTab = "#"+tab;
+
+	if(history.pushState) {
+     //history.pushState(null, null, CurrentTab);
+	}
+	else {
+	    location.hash = CurrentTab;
+	}
+		location.hash = CurrentTab;
+	//var res = split(#,tab);
+	var Storage = GetStorage();
+	Storage.LastTab = CurrentTab;
+	console.log(Storage.LastTab);
+	//Storage.TabNum = TabNum;
+	localStorage.setItem("webapp", JSON.stringify(Storage));
+
+	return;
+};
+
+
 $("#tab-quick-reports").click(function(e){
 	e.preventDefault();
 	tabSelect("quick-reports");
 	//location.preventDefault();
 	//location.hash = "#quick-reports";
-	return false;
+	//return false;
 }); 
 
 $("#tab-my-folders").click(function(e){
@@ -417,19 +482,19 @@ $("#tab-my-folders").click(function(e){
 	tabSelect("my-folders");
 	//location.preventDefault();
 	//location.hash = "#my-folders";
-	return false;
+	//return false;
 }); 
 
 $("#tab-my-team-folders").click(function(e){
 	e.preventDefault();
 	tabSelect("my-team-folders");
-	return false;
+	//return false;
 }); 
 
 $("#tab-public-folders").click(function(e){
 	e.preventDefault();
 	tabSelect("public-folders");
-	return false;
+	return;
 }); 
 
 $(".settings").click(function(e){
@@ -488,6 +553,7 @@ $(".search-box").submit(function(e) {
 });
 //keyboard navigation
 $(".tab form input").keydown(function(e) {
+	//e.preventDefault();
  	if (e.keyCode == 27) 
 	{
 		var Tab = $(CurrentTab);
@@ -496,6 +562,7 @@ $(".tab form input").keydown(function(e) {
 });
 //keyboard navigation
 $(".tab form input").keydown(function(e) {
+	//e.preventDefault();
  	if (e.keyCode == 13) 
 	{
 		var Tab = $(CurrentTab);
