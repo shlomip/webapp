@@ -99,7 +99,7 @@
 			<div class="select">
 				<a class="settings" href="#"></a>
 				<a class="expend" href="#"></a>
-				<select id ="choose-iframe" name="choose-iframe" class="choose-iframe-select" data-select="qrSettings">
+				<select id ="choose-iframe" class="choose-iframe-select" data-select="qrSettings">
 				<option></option>
 				</select>
 				<iframe class="iframe-build" id="quick-reports-iframe" src=""></iframe>
@@ -157,7 +157,10 @@
 	
 
 		<div class="tab" id="my-folders">
-			<iframe class="iframe-build" id="quick-reports-iframe" src="http://netcraft.co.il"></iframe>
+			<div class="select">
+				<a class="expend" href="#"></a>
+				<iframe class="iframe-build-alone" id="quick-reports-iframe" src="http://netcraft.co.il"></iframe>
+			</div>
 			<div class="reports-wrapper">
 			</div>
 		</div>
@@ -166,7 +169,7 @@
 			<div class="select">
 				<a class="settings" href="#"></a>
 				<a class="expend" href="#"></a>
-				<select id ="team-choose-iframe" name="choose-iframe" class="team-iframe-select" data-select="qrSettings">
+				<select id ="team-choose-iframe" class="team-iframe-select" data-select="qrSettings">
 				<option></option>
 				</select>
 				<iframe class="iframe-build" id="quick-reports-iframe" src=""></iframe>
@@ -223,7 +226,11 @@
 		</div>
 	
 		<div class="tab" id="public-folders">
-			<iframe class="iframe-build" id="my-team-folders-iframe" src="http://netcraft.co.il"></iframe>
+			<div class="select">
+				<a class="expend" href="#"></a>
+				<iframe class="iframe-build-alone" id="quick-reports-iframe" src="http://netcraft.co.il"></iframe>
+			</div>
+			
 			<div class="reports-wrapper">
 			</div>
 		</div>

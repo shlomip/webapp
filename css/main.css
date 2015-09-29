@@ -392,3 +392,12 @@ fieldset{
     background-color: #ebebeb;
     z-index:0;
 }
+
+.iframe-build-alone {
+    display: inline-block;
+    width: 96.5%;
+    height: 95%;
+    background-color: #ebebeb;
+    z-index:0;
+    margin-top: 40px;
+}
