@@ -14,7 +14,11 @@ function load_settings(){
 	//var name, url;
 	//e.preventDefault();
 	$(".tab").hide();
-	$(".expand").hide();
+	//$(".expand").hide();
+	$(".select .expend").hide();
+	$(".select select").hide();
+	$("#my-folders .expend").show();
+	$("#public-folders .expend").show();
 	$("#quick-reports").find(".iframe-build").hide();
 	$("#my-team-folders").find(".iframe-build").hide();
 	var Storage = GetStorage(); 
@@ -26,7 +30,7 @@ function load_settings(){
 	//location.hash =  Storage.LastTab;
 	CurrentTab = Storage.LastTab;
 	$(CurrentTab).show();
-	console.log(CurrentTab);
+	//console.log(CurrentTab);
 
 	var selected = "";
 	switch(CurrentTab){
@@ -63,7 +67,7 @@ function load_settings(){
 	{
 		// open first tab
 		location.hash = "#quick-reports";
-		tabSelect("quick-reports");
+		//tabSelect("quick-reports");
 	//	console.log(Storage.LastTab);
 		if(history.pushState) {
 		   // history.pushState(null, null, "#quick-reports");
@@ -77,7 +81,7 @@ function load_settings(){
 	{
 		// open last tab
 		location.hash = Storage.LastTab;
-		tabSelect(Storage.LastTab);
+		//tabSelect(Storage.LastTab);
 		if(history.pushState) {
 		   // history.pushState(null, null, Storage.LastTab);
 			}
@@ -184,7 +188,7 @@ function SaveSites(){
 			if(CurrentTab=="#quick-reports"){
 				//$(CurrentTab).find(".choose-iframe-select").add(option);
 				document.getElementById("choose-iframe").add(option);
-				console.log(CurrentTab);
+				//console.log(CurrentTab);
 			}
 			else if(CurrentTab=="#my-team-folders"){
 				document.getElementById("team-choose-iframe").add(option);
@@ -239,8 +243,8 @@ function UpdateTabSites(Tab){
 	var SiteValue;
 	var SelectFlag = true; 
 
-	if(Tab==  "#quick-reports"){
-		 SiteValue = Storage[TAB_LIST["#quick-reports"]];
+	if(Tab == "#quick-reports"){
+		SiteValue = Storage[TAB_LIST["#quick-reports"]];
 	}
 	else if(Tab=="#my-team-folders"){
 		SiteValue = Storage[TAB_LIST["#my-team-folders"]];
@@ -296,7 +300,7 @@ function UpdateTabSites(Tab){
 			});
 		}
 
-		if(TabSelect.find("iframe").length > 0){
+		if(TabSelect.find("iframe").length > 0){ //create iframe if one doesnt exist (not of use for now..)
 			TabIframe = TabSelect.find("iframe")[0];		
 		}
 		else{
@@ -425,12 +429,12 @@ function SearchTab(input, Tab) {
 			//var str = CurrentTab;
 			//str.split("#",str);
 			//console.log(str);
-			if(Tab=="#quick-reports"){
+			/*if(Tab=="#quick-reports"){
 				//tabSelect("quick-reports"); //not such a nice workaround..:/
 			}
 			else if(Tab=="my-team-folders"){
 				//tabSelect("my-team-folders");
-			}
+			}*/
 			$(Tab).show();
 			$(selected).css("background-color", "rgb(230, 230, 230)");
 
@@ -446,10 +450,11 @@ function tabSelect (tab) {
 	$(".tab").hide();
 	$(".tab-head a").css("background-color","#525252");
 	$(".first-tab a").css("background-color","#525252");
-	$("#" + tab).show();
+	$('#'+tab).show();
 	$("#tab-"+ tab).css("background-color","#e6e6e6");
 
 	CurrentTab = "#"+tab;
+	//console.log(tab);
 
 	if(history.pushState) {
      //history.pushState(null, null, CurrentTab);
@@ -457,11 +462,11 @@ function tabSelect (tab) {
 	else {
 	    location.hash = CurrentTab;
 	}
-		location.hash = CurrentTab;
+	//location.hash = CurrentTab;
 	//var res = split(#,tab);
 	var Storage = GetStorage();
 	Storage.LastTab = CurrentTab;
-	console.log(Storage.LastTab);
+	//console.log(Storage.LastTab);
 	//Storage.TabNum = TabNum;
 	localStorage.setItem("webapp", JSON.stringify(Storage));
 
